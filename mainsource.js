@@ -31,7 +31,7 @@ client.on('message', message => {
 	const command = args.shift().toLowerCase();
 	// commands
 
-
+/*
 	CommandHandler.create({
 		commandsDir: 'commands',
 		eventsDir: 'events',
@@ -40,16 +40,16 @@ client.on('message', message => {
 		owners: ['Discord IDs']
 	});
 
-	CommandHandler.launch({
-		token: 'ODU4MzY3MDI3NTcxNDU4MDg4.YNdGlw.-HpbxbCToebQFoLTKjeJXKBTJIc',
+	 CommandHandler.launch({
+		token: 'accidentally left the token here at first :skull:',
 		// Optionnal :
 		clientOptions: {
 			// Client Options, see Discord.js#ClientOptions
 		}
 	});
-
+*/
 	// test command
-	/* if (command === 'awaken') {
+	 if (command === 'awaken') {
 		// eslint-disable-next-line no-constant-condition
 		if (message.member.roles.cache.has('868949778912927755') || '616127916090195968') {
 			message.channel.send('i have awoken. i have been resurected.');
@@ -57,7 +57,7 @@ client.on('message', message => {
 			message.channel.send('You do not have the required permissions to use this command.');
 		}
 	}
-/*	if (command === 'cheese') {
+	if (command === 'cheese') {
 		const attachment = new MessageAttachment('https://cdn.discordapp.com/attachments/867899799104520196/870107571493675139/Screenshot_20210723-045125_TikTok.jpg');
 		// Send the attachment in the message channel
 		message.channel.send(attachment);
@@ -67,7 +67,7 @@ client.on('message', message => {
 		const attachment = new MessageAttachment('https://imgur.com/pKra7We.gif');
 		// Send the attachment in the message channel
 		message.channel.send(attachment);
-	} */
+	} 
 
 
 	if (command === 'status') {
