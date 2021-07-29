@@ -1,4 +1,4 @@
-# averymadnessbot
+# averymadness-bot
 a custom discord bot.
 
 i know almost everyone who reads this will not understand any of this, but i wanted to upload this to github anyway. just felt like it.
