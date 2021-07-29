@@ -303,8 +303,4 @@ client.on('message', message => {
 	}
 });
 
-client.login('ODU4MzY3MDI3NTcxNDU4MDg4.YNdGlw.gGIJxUZT8nzu7ODzr2SsYvSi_Ho');
-
-
-
 client.login('TOKEN GOES HERE');
