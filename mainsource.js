@@ -132,4 +132,4 @@ client.on('message', message => {
 });
 
 
-client.login('ODU4MzY3MDI3NTcxNDU4MDg4.YNdGlw.-HpbxbCToebQFoLTKjeJXKBTJIc');
+client.login('TOKEN GOES HERE');
