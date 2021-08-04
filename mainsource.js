@@ -249,4 +249,4 @@ if (command === 'troll') {
 		 
 });
 
-client.login('ODU4MzY3MDI3NTcxNDU4MDg4.YNdGlw.j5JveGBzOvRc9K6avFxdmh7RNlQ');
+client.login('TOKEN GOES HERE');
