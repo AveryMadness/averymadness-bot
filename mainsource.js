@@ -3,7 +3,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
 // basic shit
-const { Client, Intents, MessageEmbed, MessageAttachment, guild, user, member, Discord } = require('discord.js');
+const { Client, Intents, MessageEmbed, MessageAttachment, guild, user, member, VoiceChannel } = require('discord.js');
+
+const fs = require('fs');
+
+const Discord = require('discord.js');
+
 
 // prefix
 const prefix = 'av!';
@@ -14,7 +19,7 @@ const client = new Client({ intents: intents, partials: ['CHANNEL', 'USER', 'REA
 
 // login message + Status
 client.on('ready', () => {
-	console.log(`Logged in as ${client.user.tag}! \n if you need any assistance understanding, or getting code to work, please contact AveryMadness#0619 on discord.`);
+	console.log(`Logged in as ${client.user.tag}! \n if you need any assistance understanding, or getting code to work, please contact AveryMadness#0619 on discord. \n https://cdn.discordapp.com/attachments/868516505413894175/871876408367022090/stormzy_glitches-1.mp4`);
 	var activities = [`av!help`, `av!status`, `av!secret`], i = 0;
 	setInterval(() => client.user.setActivity(`${activities[i++ % activities.length]}`, {
 		type: 'PLAYING'
@@ -22,45 +27,92 @@ client.on('ready', () => {
 });
 
 
-client.on('message', message => {
+     client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	const args = message.content.slice(prefix.length).split(/ + /);
 	const command = args.shift().toLowerCase();
 
+
+	client.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for(const file of commandFiles){
+	const command = require(`./commands/${file}`);
+
+	client.commands.set(command.name, command);	
+}
 	// commands
 	if (command === 'changelog') {
-		const exampleEmbed = new MessageEmbed()
-			.setColor('#f30311')
-			.setTitle('Changelog')
-			.setURL()
-			.setAuthor('AveryMadnessBOT')
-			.setDescription('Changelog: \n July 29th 2021 UPDATE 2: \n added moderation commands, any issues should be reported to <@419224403415662592> \n added secrets, good luck finding them. \n added source command, admins and above can obtain the source with av!source. to request access to make changes, contact <@419224403415662592>. \n added discord command, to obtain the discord invite.  ')
-			.setThumbnail('https://imgur.com/Nk8wH5A.png')
-			.setImage()
-			.setTimestamp()
-			.setFooter('AveryMadnessBOT');
+		client.commands.get('changelog').execute(message, args);
+	}
 
-		message.channel.send(exampleEmbed);
+	if (command === 'opheebop') {
+		client.commands.get('opheebop').execute(message, args);
+	}
+
+	if (command === 'ping') {
+		client.commands.get('ping').execute(message, args);
 	}
 
 	// secret commands
 	if (command === 'cheese') {
-		const attachment = new MessageAttachment('https://cdn.discordapp.com/attachments/867899799104520196/870107571493675139/Screenshot_20210723-045125_TikTok.jpg');
-		// Send the attachment in the message channel
-		message.channel.send(attachment);
+		client.commands.get('cheese').execute(message, args);
+	}
+
+	if (command === "whopper") {
+		client.commands.get('whopper').execute(message, args);
+	}
+
+	if (command === 'creation') {
+		client.commands.get('creation').execute(message, args);
+	}
+
+	if (command === 'wooby') {
+	client.commands.get('wooby').execute(message, args);
 	}
 
 	if (command === 'dog') {
-		const attachment = new MessageAttachment('https://cdn.discordapp.com/attachments/870504906925174848/870704965444849754/the_dog.mp4');
-		// Send the attachment in the message channel
-		message.channel.send(attachment);
+	client.commands.get('dog').execute(message, args);
 	}
 
 	if (command === 'forgor') {
-		const attachment = new MessageAttachment('https://imgur.com/AER8uK5.jpg');
-		// Send the attachment in the message channel
-		message.channel.send(attachment);
+	client.commands.get('forgor').execute(message, args);
 	}
+
+
+
+	if (command === 'source') {
+		client.commands.get('discord').execute(message, args);
+	}
+
+	if (command === 'discord') {
+		client.commands.get('discord').execute(message, args);
+	}
+
+	if (command === 'mute') {
+		client.commands.get('mute').execute(message, args);
+	}
+
+	if (message.content.startsWith('av!kick')) {
+		client.commands.get('kick').execute(message, args);
+	}
+
+	if (command === 'website') {
+		client.commands.get('website').execute(message, args);
+	}
+
+	if (command === 'ban') {
+		client.commands.get('ban').execute(message, args);
+	}
+
+
+
+// music 
+if (command === 'play') {
+	client.commands.get('play').execute(message, args);
+}
+
+
 
 	if (command === 'stopbackdoor') {
 		const exampleEmbed = new MessageEmbed()
@@ -194,174 +246,7 @@ if (command === 'troll') {
 	}
 
 
-	if (command === 'source') {
-		if (message.member.roles.cache.some(role => role.name === 'AveryMadnessBOT Admin Perms')) {
-			message.channel.send('the source code can be found at https://github.com/AveryMadness/averymadnessbot.git. \n have fun! ^-^');
-			console.log('User accessed bot source code.');
-		} else {
-			message.channel.send('You do not have the required permissions to use this command.');
-		}
-	}
-
-	if (command === 'discord') {
-		message.channel.send('The discord server can be found here. \n https://discord.gg/rPFEXVAXuB');
-	}
-
-	if (command === 'gay') {
-		message.channel.send('fuck you say to me you little shit');
-	}
-
-	if (message.content.startsWith('av!kick')) {
-		if (message.member.roles.cache.some(role => role.name === 'AveryMadnessBOT Admin Perms')) {
-			const user = message.mentions.users.first();
-			if (user) {
-			  const member = message.guild.member(user);
-			  if (member) {
-					member
-				  .kick('AveryMadnessBOT sends their regards')
-				  .then(() => {
-							const exampleEmbed = new MessageEmbed()
-								.setColor('#f30311')
-								.setTitle('')
-								.setURL()
-								.setAuthor('')
-								.setDescription('Successfully kicked ${user.tag}!')
-								.setThumbnail('')
-								.setImage()
-								.setTimestamp()
-								.setFooter('');
-							message.channel.send(exampleEmbed);
-							console.log('user was kicked.');
-				  })
-				  .catch(err => {
-							const exampleEmbed = new MessageEmbed()
-								.setColor('#f30311')
-								.setTitle('')
-								.setURL()
-								.setAuthor('')
-								.setDescription('I was unable to kick the member. This could be due to missing permissions, or an error with the code. \n Please contact <@419224403415662592> for assistance. ')
-								.setThumbnail('')
-								.setImage()
-								.setTimestamp()
-								.setFooter('');
-							message.channel.send(exampleEmbed);
-							console.error(err);
-				  });
-			  } else {
-					const exampleEmbed = new MessageEmbed()
-						.setColor('#f30311')
-						.setTitle('')
-						.setURL()
-						.setAuthor('')
-						.setDescription('That user is not in the server.')
-						.setThumbnail('')
-						.setImage()
-						.setTimestamp()
-						.setFooter('');
-					message.channel.send(exampleEmbed);
-					console.log('user tried to be kicked but was not found.');
-			  }
-			} else {
-				const exampleEmbed = new MessageEmbed()
-					.setColor('#f30311')
-					.setTitle('')
-					.setURL()
-					.setAuthor('')
-			  	.setDescription("You didn't mention the user to kick!")
-					.setImage()
-					.setTimestamp()
-					.setFooter('');
-				message.channel.send(exampleEmbed);
-			}
-		  } else {
-			  const exampleEmbed = new MessageEmbed()
-			  .setColor('#f30311')
-			  .setTitle('')
-			  .setURL()
-			  .setAuthor('')
-			  .setDescription('You do not have the required permissions to use this command. \n if you think this is a mistake, please contact <@419224403415662592> for assistance.')
-			  .setImage()
-			  .setTimestamp()
-			  .setFooter('');
-			  message.channel.send(exampleEmbed);
-			console.log('Kick failed. Not Enough Permissions.');
-		  }
-	}
-
-	if (message.content.startsWith('av!ban')) {
-		 if (message.member.roles.cache.some(role => role.name === 'AveryMadnessBOT Admin Perms')) {
-			if (user) {
-				const member = message.guild.member(user);
-				if (member) {
-			  member
-						.ban({
-					  reason: 'AveryMadnessBOT sends their regards.'
-						})
-						.then(() => {
-							const exampleEmbed = new MessageEmbed()
-								.setColor('#f30311')
-								.setTitle('')
-								.setURL()
-								.setAuthor('')
-								.setDescription('Successfully banned ${user.tag}!')
-								.setThumbnail('')
-								.setImage()
-								.setTimestamp()
-								.setFooter('');
-							message.channel.send(exampleEmbed);
-						})
-						.catch(err => {
-							const exampleEmbed = new MessageEmbed()
-								.setColor('#f30311')
-								.setTitle('')
-								.setURL()
-								.setAuthor('')
-								.setDescription('I was unable to kick the member. This could be due to missing permissions, or an error with the code. \n Please contact <@419224403415662592> for assistance. ')
-								.setThumbnail('')
-								.setImage()
-								.setTimestamp()
-								.setFooter('');
-							message.channel.send(exampleEmbed);
-					  console.error(err);
-						});
-				} else {
-					const exampleEmbed = new MessageEmbed()
-						.setColor('#f30311')
-						.setTitle('')
-						.setURL()
-						.setAuthor('')
-						.setDescription('That user is not in the server.')
-						.setThumbnail('')
-						.setImage()
-						.setTimestamp()
-						.setFooter('');
-					message.channel.send(exampleEmbed);
-				}
-	  } else {
-				const exampleEmbed = new MessageEmbed()
-					.setColor('#f30311')
-					.setTitle('')
-					.setURL()
-					.setAuthor('')
-	  .setDescription("You didn't mention the user to ban!")
-					.setImage()
-					.setTimestamp()
-					.setFooter('');
-				message.channel.send(exampleEmbed);
-	  }
-		} else {
-			const exampleEmbed = new MessageEmbed()
-			  .setColor('#f30311')
-			  .setTitle('')
-			  .setURL()
-			  .setAuthor('')
-			  .setDescription('You do not have the required permissions to use this command. \n if you think this is a mistake, please contact <@419224403415662592> for assistance.')
-			  .setImage()
-			  .setTimestamp()
-			  .setFooter('');
-			  message.channel.send(exampleEmbed);
-		}
-	}
+		 
 });
 
-client.login('ODU4MzY3MDI3NTcxNDU4MDg4.YNdGlw.Xe8MeMipIwFWzgnS1Dim9adFnoM');
+client.login('ODU4MzY3MDI3NTcxNDU4MDg4.YNdGlw.j5JveGBzOvRc9K6avFxdmh7RNlQ');
