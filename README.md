@@ -1,6 +1,5 @@
 # averymadness-bot
 a custom discord bot.
 
-i know almost everyone who reads this will not understand any of this, but i wanted to upload this to github anyway. just felt like it.
-do not copy any of this code to your own bot without my permission.
-have fun making your brain hurt! ^-^
+this version of the bot is an experimental ( currently outdated ) unstable version, with more not very tested features.
+not everything will work well, and not everything will work period.
